@@ -13,8 +13,8 @@ const Footer = () => {
         <div className="self-start grid gap-y-3">
           <Image
             src={"/logo.png"}
-            width={100}
-            height={100}
+            width={120}
+            height={120}
             alt=""
             className="object-cover"
           />
@@ -55,7 +55,7 @@ const Footer = () => {
             <div className="border p-2 rounded-full flex items-center justify-center">
               <Twitter className="text-gray-600" />
             </div>
-            <div className="w-[100px] border " />
+            {/* <div className="w-[100px] border " /> */}
           </div>
         </div>
       </div>

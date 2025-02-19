@@ -1,5 +1,4 @@
 import Customers from "@/components/customers";
-import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import OurChef from "@/components/our-chef";
 import SpecialDish from "@/components/special-dish";
@@ -15,7 +14,6 @@ export default function Home() {
         <Customers />
         <Subscribe />
       </div>
-      <Footer />
     </div>
   );
 }
