@@ -5,7 +5,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,8 +16,10 @@ import { RegisterSchema } from "@/static/schema";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
+import { useRegisterMutation } from "@/apis/_user.index.api";
 
 const RegisterPage = () => {
+  const [register, { isError, isLoading, isSuccess }] = useRegisterMutation();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -28,9 +29,11 @@ const RegisterPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof RegisterSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof RegisterSchema>) {
+    const res = await register(values);
+    console.log(res);
   }
+
   return (
     <div className="grid max-w- w-full lg:grid-cols-[1fr_1fr] my-4 px-4 mb-10 ">
       <div className="w-full hidden lg:grid place-content-center  gap-5 ">
@@ -38,7 +41,7 @@ const RegisterPage = () => {
           {" "}
           continue with google
         </h1>
-        <Button className=" w-[400px] capitalize p-5">
+        <Button type="button" className=" w-[400px] capitalize p-5">
           <span className="text-lg ">Sign in with google</span>
           <Image
             src={"/google-logo.svg"}
@@ -113,8 +116,12 @@ const RegisterPage = () => {
               )}
             />
             <div className="">
-              <Button type="submit" className="w-full p-6 text-xl ">
-                Submit
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="w-full p-6 text-xl disabled:cursor-not-allowed"
+              >
+                Create account
               </Button>
               <Link
                 href={"/login"}
@@ -126,14 +133,14 @@ const RegisterPage = () => {
             </div>
           </form>
         </Form>
-        <div className="w-full grid items-center  mt-4 ">
+        <div className="w-full grid  md:hidden items-center  mt-4 ">
           <Separator className="my-4" />
           <div className="grid gap-y-4">
             <h1 className="text-center text-xl font-medium">
               {" "}
               continue with google
             </h1>
-            <Button className=" w-full capitalize p-5">
+            <Button type="button" className=" w-full capitalize p-5">
               <span className="text-lg ">Sign in with google</span>
               <Image
                 src={"/google-logo.svg"}

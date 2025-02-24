@@ -5,7 +5,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,24 +12,50 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { RegisterSchema } from "@/static/schema";
+import { LoginSchema } from "@/static/schema";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  useLoginMutation,
+  useResetPasswordMutation,
+} from "@/apis/_user.index.api";
+import { useSessionStore } from "@/sessions/auth-session";
+import { LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FormSuccess } from "@/components/form-success";
 
 const Loginpage = () => {
-  const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
+  const router = useRouter();
+  const [passwordString, setPasswordString] = useState("");
+  const [resetPassword, { isLoading: isChangingPassword }] =
+    useResetPasswordMutation();
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof RegisterSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof LoginSchema>) {
+    const res = await login(values);
   }
-
+  if (isSuccess) {
+    router.push("/");
+  }
+  const session = useSessionStore((state) => state.session);
+  const email = session?.user?.email;
+  const handleForgotPassword = async () => {
+    try {
+      const res = await resetPassword({ email });
+      setPasswordString(res?.data?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="w-full max-w-4xl grid mx-auto mb-10 p-4">
@@ -79,13 +104,37 @@ const Loginpage = () => {
                   </FormItem>
                 )}
               />
-              <span className="text-sm text-gray-700 cursor-pointer">
-                Forgot password?
+              <span
+                onClick={handleForgotPassword}
+                className="text-sm text-gray-700 cursor-pointer"
+              >
+                <div className="grid gap-y-2">
+                  {isChangingPassword ? (
+                    <LoaderCircle
+                      className="animate-spin text-center"
+                      size={20}
+                    />
+                  ) : (
+                    "Forgot password?"
+                  )}
+                  {passwordString && <FormSuccess message={passwordString} />}
+                </div>
               </span>
             </div>
             <div className="">
-              <Button type="submit" className="w-full p-6 text-xl ">
-                Submit
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="w-full p-6 text-xl "
+              >
+                {isLoading ? (
+                  <LoaderCircle
+                    className="animate-spin text-center"
+                    size={20}
+                  />
+                ) : (
+                  "login"
+                )}
               </Button>
               <Link
                 href={"/register"}

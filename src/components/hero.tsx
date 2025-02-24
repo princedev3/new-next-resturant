@@ -1,5 +1,7 @@
+"use client";
 import { Facebook, Instagram, Twitter } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
@@ -24,7 +26,7 @@ const Hero = () => {
         </span>
         <div className="grid grid-flow-col auto-cols-max gap-6">
           <button className="bg-black   text-white px-4 rounded-tl-lg rounded-br-lg cursor-pointer shadow-lg py-2">
-            menu
+            <Link href={"/menu"}> menu</Link>
           </button>
           <button className="bg-[#EA6D27]   text-white px-4 rounded-tl-lg rounded-br-lg cursor-pointer shadow-lg py-2">
             Book a table
