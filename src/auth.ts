@@ -4,7 +4,7 @@ import { PrismaClient, UserRole } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import authConfig from "./auth.config";
 import { findUserByEmail } from "./action/get-user-by-email";
-// import prisma from "./static/prisma";
+
 const prisma = new PrismaClient();
 export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
