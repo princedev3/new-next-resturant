@@ -66,13 +66,6 @@ export const PUT = async (req: NextRequest) => {
         },
       });
     }
-    // console.log({
-    //   name,
-    //   desc,
-    //   image: [...(Array.isArray(images) ? images : []), , ...(newImage?.length && newImage)],
-    //   price,
-    //   available,
-    // });
 
     return NextResponse.json({ message: "product updated" }, { status: 200 });
   } catch (error) {

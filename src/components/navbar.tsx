@@ -4,9 +4,12 @@ import { AlignJustify } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { ShoppingCart } from "lucide-react";
+import { useCartSore } from "@/static/cartstore";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const totalItems = useCartSore((state) => state.totalItems);
   return (
     <div className="h-[100px] w-full grid items-center grid-flow-col px-2 xl:px-0 ">
       <div className=" grid items-center h-full ">
@@ -31,9 +34,14 @@ const Navbar = () => {
         ))}
       </div>
       <div className=" grid grid-flow-col gap-2 justify-end items-center h-full ">
-        <button className="bg-[#EA6D27] hidden md:inline-block  text-white px-4 rounded-tl-lg rounded-br-lg cursor-pointer shadow-lg py-2">
-          Book a table
-        </button>
+        <Link href={"/cart"}>
+          <button className="bg-[#EA6D27] relative text-center  md:inline-block  text-white px-4 rounded-tl-lg rounded-br-lg cursor-pointer shadow-lg py-2">
+            <ShoppingCart />
+            <span className="absolute top-0 right-1 w-5 h-5 bg-white rounded-full text-[#EA6D27] flex items-center justify-center">
+              {totalItems}
+            </span>
+          </button>
+        </Link>
 
         <AlignJustify
           onClick={() => setOpen(!open)}

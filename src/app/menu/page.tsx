@@ -9,7 +9,7 @@ const Menu = () => {
     return <span className="">Loading...</span>;
   }
   return (
-    <div className="py-8">
+    <div className="py-8 grid  grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] mx-auto gap-8">
       {data &&
         data?.length &&
         data.map((item) => <MenuCard key={item.id} item={item} />)}

@@ -7,6 +7,7 @@ import AuthProvider from "@/provider/auth-provider";
 import RtkProvider from "@/provider/rtk-provider";
 import { auth } from "@/auth";
 import SessionProvider from "@/provider/session-provider";
+import CountDown from "@/components/count-down";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <RtkProvider>
             <AuthProvider>
+              <CountDown />
               <Navbar />
               {children}
               <Footer />

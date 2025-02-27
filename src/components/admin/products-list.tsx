@@ -17,7 +17,7 @@ const ProductsList = () => {
   return (
     <div className="">
       <div className=" gap-y-4 w-full">
-        <div className=""></div>
+        {/* <div className=""></div> */}
         {/* <h2 className="capitalize font-medium text-xl"></h2> */}
         <div className="">
           <table className="w-full border-collapse border border-gray-300 table-fixed">

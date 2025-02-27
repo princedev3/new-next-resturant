@@ -43,3 +43,21 @@ model Product{
    createdAt DateTime @default(now())
 }
 
+model Coupon {
+  id          String   @id @default(cuid()) 
+  code        String   @unique 
+  desc String
+  discount    Int    
+  expiryDate  DateTime 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([code])
+}
+
+model Gallery {
+  id          String   @id @default(cuid()) 
+ name String
+ image String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

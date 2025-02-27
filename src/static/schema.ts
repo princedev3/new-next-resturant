@@ -44,3 +44,25 @@ export const productSchema = z.object({
       message: "Image must be an array of files.",
     }),
 });
+
+export const couponSchema = z.object({
+  discount: z
+    .string()
+    .min(1, { message: "price is required" })
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Price must be a valid number.",
+    })
+    .transform((val) => Number(val)),
+  desc: z.string().min(1, { message: "desc is required" }),
+});
+
+export const gallerySchema = z.object({
+  name: z.string().min(2, {
+    message: "name must be at least 2 characters.",
+  }),
+  image: z
+    .any()
+    .refine((files) => files instanceof FileList || Array.isArray(files), {
+      message: "Image must be an array of files.",
+    }),
+});
