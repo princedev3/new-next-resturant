@@ -1,12 +1,27 @@
 "use client";
 import { useCartSore } from "@/static/cartstore";
 import Image from "next/image";
-import React from "react";
-import { Plus } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { LoaderCircle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useGetCouponQuery } from "@/apis/_coupon_index.api";
+import { useCreateOrderMutation } from "@/apis/_order_index.api";
+import { useSessionStore } from "@/sessions/auth-session";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
+  const { data, isLoading } = useGetCouponQuery();
+  const [createOrder, { isLoading: isCreating, isSuccess }] =
+    useCreateOrderMutation();
+  const [orderId, setOrderId] = useState("");
+  const [coupon, setCoupon] = useState("");
+  const session = useSessionStore((state) => state.session);
+  const router = useRouter();
+
+  const isExpired =
+    data && data?.length <= 0 && new Date() > new Date(data[0].expiryDate);
+
   const product = useCartSore((state) => state.products);
   const remove = useCartSore((state) => state.removeFromCart);
 
@@ -14,6 +29,25 @@ const Cart = () => {
   const itemCount = useCartSore((state) => state.totalItems);
 
   const finalPrice = product.reduce((acc, cur) => acc + cur.price, 0);
+  const handlePayment = async () => {
+    const res = await createOrder({
+      coupon,
+      price: finalPrice,
+      userEmail: session?.user?.email,
+      id: session?.user?.id,
+      products: product,
+    });
+    setOrderId(res?.data?.id);
+  };
+
+  useEffect(() => {
+    if (isSuccess && orderId) {
+      router.push(`/pay/${orderId}`);
+    }
+  }, [isSuccess, orderId]);
+  if (isLoading) {
+    return <span className="">Loading...</span>;
+  }
   return (
     <div>
       <h1 className="text-center mb-4 text-xl font-semibold">
@@ -78,7 +112,18 @@ const Cart = () => {
             <span className="w-full">Estimated Tax</span>
             <span className="">vax (inclusive) </span>
           </div>
-          <Separator className="my-4" />
+          <Separator className="my-3" />
+          {!isExpired && (
+            <div className="">
+              <input
+                type="text"
+                placeholder="Apply coupon"
+                onChange={(e) => setCoupon(e.target.value)}
+                className="p-2 border rounded-md outline-none w-full"
+              />
+              <Separator className="my-4" />
+            </div>
+          )}
           <div className="grid grid-flow-col justify-between  items-center">
             <span className="w-full text-red-800 font-medium text-xl">
               Total Purchase
@@ -87,8 +132,17 @@ const Cart = () => {
               $ {finalPrice}{" "}
             </span>
           </div>
-          <Button className="w-full bg-[#EA6D27] hover:bg-[#EA6D27] ">
-            Place your order
+
+          <Button
+            disabled={finalPrice === 0 || isCreating}
+            onClick={handlePayment}
+            className="w-full bg-[#EA6D27] hover:bg-[#EA6D27] disabled:cursor-not-allowed "
+          >
+            {isCreating ? (
+              <LoaderCircle className="animate-spin text-center" size={20} />
+            ) : (
+              "Place your order"
+            )}
           </Button>
         </div>
       </div>

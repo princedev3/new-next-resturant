@@ -22,6 +22,18 @@ model User {
  password String
    createdAt             DateTime               @default(now())
   updatedAt             DateTime               @updatedAt
+  order Order[]
+}
+model Order {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  price     Int
+  products  Json[]
+  status    String
+  coupon String?
+  intent_id String?  @unique
+  user      User     @relation(fields: [userEmail], references: [email])
+  userEmail String
 }
  
 model VerificationToken {

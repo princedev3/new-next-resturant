@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
 import { useRegisterMutation } from "@/apis/_user.index.api";
+import { LoaderCircle } from "lucide-react";
 
 const RegisterPage = () => {
   const [register, { isError, isLoading, isSuccess }] = useRegisterMutation();
@@ -31,7 +32,6 @@ const RegisterPage = () => {
 
   async function onSubmit(values: z.infer<typeof RegisterSchema>) {
     const res = await register(values);
-    console.log(res);
   }
 
   return (
@@ -121,7 +121,14 @@ const RegisterPage = () => {
                 type="submit"
                 className="w-full p-6 text-xl disabled:cursor-not-allowed"
               >
-                Create account
+                {isLoading ? (
+                  <LoaderCircle
+                    className="animate-spin text-center"
+                    size={20}
+                  />
+                ) : (
+                  "Create account"
+                )}
               </Button>
               <Link
                 href={"/login"}

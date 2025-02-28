@@ -1,5 +1,6 @@
 import { couponApi } from "@/apis/_coupon_index.api";
 import { galleryApi } from "@/apis/_gallery_index.api";
+import { orderApi } from "@/apis/_order_index.api";
 import { productApi } from "@/apis/_product_index.api";
 import { userApi } from "@/apis/_user.index.api";
 import { configureStore } from "@reduxjs/toolkit";
@@ -10,11 +11,13 @@ export const store = configureStore({
     [productApi.reducerPath]: productApi.reducer,
     [couponApi.reducerPath]: couponApi.reducer,
     [galleryApi.reducerPath]: galleryApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(userApi.middleware)
       .concat(productApi.middleware)
       .concat(couponApi.middleware)
+      .concat(orderApi.middleware)
       .concat(galleryApi.middleware),
 });

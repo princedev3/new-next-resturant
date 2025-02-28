@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const galleryApi = createApi({
   reducerPath: "galleryApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   }),
   tagTypes: ["Gallery"],
   endpoints: (builder) => ({
