@@ -29,7 +29,7 @@ const Hero = () => {
             <Link href={"/menu"}> menu</Link>
           </button>
           <button className="bg-[#EA6D27]   text-white px-4 rounded-tl-lg rounded-br-lg cursor-pointer shadow-lg py-2">
-            Book a table
+            <Link href={"/events"}> Book a table</Link>
           </button>
         </div>
         <div className="flex items-center gap-4">

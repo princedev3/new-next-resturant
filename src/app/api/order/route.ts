@@ -1,5 +1,6 @@
 import prisma from "@/static/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { subDays, startOfDay, endOfDay } from "date-fns";
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -11,7 +12,8 @@ export const POST = async (req: NextRequest) => {
     });
     let finalPrice;
     if (findCoupon?.discount) {
-      finalPrice = body.price - findCoupon?.discount;
+      finalPrice =
+        body.price >= 50 ? body.price - findCoupon?.discount : body.price;
     }
 
     const orderCreated = await prisma.order.create({
@@ -29,6 +31,55 @@ export const POST = async (req: NextRequest) => {
       },
     });
     return NextResponse.json(orderCreated, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "can not create order" },
+      { status: 500 }
+    );
+  }
+};
+
+export const GET = async (req: NextRequest) => {
+  try {
+    const sevenDaysAgo = subDays(new Date(), 7);
+    const sales = await prisma.order.groupBy({
+      by: ["createdAt"],
+      where: {
+        createdAt: {
+          gte: startOfDay(sevenDaysAgo),
+          lte: endOfDay(new Date()),
+        },
+        status: "payment successful, processing order",
+      },
+      _sum: {
+        price: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    const salesGrouped = sales.reduce<Record<string, number>>((acc, sale) => {
+      const date = sale.createdAt.toISOString().split("T")[0];
+      if (!acc[date]) {
+        acc[date] = 0;
+      }
+      acc[date] += sale._sum?.price as number;
+      return acc;
+    }, {});
+
+    const last7Days = Array.from({ length: 7 }, (_, i) => {
+      const date = subDays(new Date(), i);
+      const formattedDate = date.toISOString().split("T")[0];
+
+      return {
+        date: formattedDate,
+        totalSales: salesGrouped[formattedDate] || 0,
+      };
+    }).reverse();
+
+    return NextResponse.json({ last7Days, status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

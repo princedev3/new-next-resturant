@@ -3,13 +3,22 @@ import { menuData } from "@/static/data";
 import { AlignJustify } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useCartSore } from "@/static/cartstore";
+import { useSessionStore } from "@/sessions/auth-session";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const totalItems = useCartSore((state) => state.totalItems);
+  const sesssion = useSessionStore((state) => state.session);
+  const pathName = usePathname();
+  const isAdminRoute = pathName.startsWith("/admin");
+  useEffect(() => {
+    useCartSore.persist.rehydrate();
+  }, []);
+
   return (
     <div className="h-[100px] w-full grid items-center grid-flow-col px-2 xl:px-0 ">
       <div className=" grid items-center h-full ">
@@ -25,13 +34,29 @@ const Navbar = () => {
       </div>
       <div className=" md:grid justify-center  items-center grid-flow-col gap-5 hidden h-full overflow-hidden">
         {menuData.map((item) => (
-          <div key={item.title} className="">
-            <Link href={item.path} className="cursor-pointer">
+          <div key={item.title} className={``}>
+            <Link
+              href={item.path}
+              className={`${
+                pathName === item.path ? "text-[#EA6D27] " : ""
+              }  cursor-pointer capitalize`}
+            >
               {" "}
-              {item.title[0].toUpperCase() + item.title.slice(1)}
+              {item.title}
             </Link>
           </div>
         ))}
+        {sesssion?.user?.role === "ADMIN" && (
+          <Link
+            href={"/admin"}
+            className={`${
+              isAdminRoute ? "text-[#EA6D27] " : ""
+            } cursor-pointer capitalize`}
+          >
+            {" "}
+            admin
+          </Link>
+        )}
       </div>
       <div className=" grid grid-flow-col gap-2 justify-end items-center h-full ">
         <Link href={"/cart"}>

@@ -4,6 +4,7 @@ import {
   useGetCouponQuery,
 } from "@/apis/_coupon_index.api";
 import CouponDetails from "@/components/admin/coupon-details";
+import Loading from "@/components/loading";
 import { Trash2 } from "lucide-react";
 import React, { useEffect } from "react";
 
@@ -14,10 +15,14 @@ const Coupon = () => {
   const handleDelete = async () => {
     await deleteCoupon(id);
   };
+
   useEffect(() => {
     console.log("deleted");
   }, [isSuccess]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className="grid gap-y-6 p-3">
       <CouponDetails />

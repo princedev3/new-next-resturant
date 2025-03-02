@@ -34,8 +34,6 @@ export const GET = async (req: NextRequest, { params }: paramsType) => {
 
 export const PUT = async (req: NextRequest, { params }: paramsType) => {
   try {
-    // const { id } = await params;
-
     const formData = await req.formData();
     const name = formData.get("name") as string;
     const id = formData.get("id") as string;
@@ -76,13 +74,6 @@ export const PUT = async (req: NextRequest, { params }: paramsType) => {
         available,
       },
     });
-    // console.log({
-    //   name,
-    //   desc,
-    //   image: [...(Array.isArray(images) ? images : []), , ...(newImage?.length && newImage)],
-    //   price,
-    //   available,
-    // });
 
     return NextResponse.json({ message: "product updated" }, { status: 200 });
   } catch (error) {

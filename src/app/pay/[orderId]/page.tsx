@@ -10,6 +10,7 @@ import CheckoutForm from "@/components/checkout-form";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
+
 const PayPage = () => {
   const { orderId } = useParams();
   const [createIntent] = useCreateIntentMutation();
@@ -29,7 +30,6 @@ const PayPage = () => {
     },
     clientSecret,
   };
-  console.log(clientSecret);
   return (
     clientSecret && (
       <Elements stripe={stripePromise} options={option}>

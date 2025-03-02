@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   PaymentElement,
   useStripe,
@@ -7,8 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { Button } from "./ui/button";
 import { LoaderCircle } from "lucide-react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useConfirmPaymentMutation } from "@/apis/_order_index.api";
+import { useParams } from "next/navigation";
 
 export default function CheckoutForm({
   clientSecret,
@@ -17,12 +16,9 @@ export default function CheckoutForm({
 }) {
   const stripe = useStripe();
   const elements = useElements();
-  const router = useRouter();
+
   const { orderId } = useParams();
-  const searchParams = useSearchParams();
-  const payment_intent = searchParams.get("payment_intent");
-  const [confirmPayment, { isSuccess }] = useConfirmPaymentMutation();
-  console.log(payment_intent, isSuccess);
+
   const [message, setMessage] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -65,7 +61,7 @@ export default function CheckoutForm({
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `http://localhost:3000/pay/${orderId}`,
+        return_url: `http://localhost:3000/success`,
       },
     });
 
@@ -77,21 +73,6 @@ export default function CheckoutForm({
 
     setIsLoading(false);
   };
-
-  useEffect(() => {
-    const updateData = async () => {
-      if (payment_intent) {
-        await confirmPayment(payment_intent);
-      }
-    };
-    updateData();
-  }, [payment_intent]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      router.push("/menu");
-    }
-  }, [isSuccess]);
 
   return (
     <div className="relative ">
@@ -114,28 +95,6 @@ export default function CheckoutForm({
             )}
           </span>
         </Button>
-        {payment_intent && (
-          <div
-            className={`bg-black bg-opacity-50 z-20 fixed top-0 left-0 w-full h-full grid place-items-center transition-all overflow-hidden 
-       opacity-100 visible
-      `}
-          >
-            <div
-              className={`bg-white w-full grid max-w-xl max-h-[80vh] rounded-lg shadow-lg relative overflow-hidden`}
-            >
-              <div className="text-center justify-center items-center flex flex-col my-10 p-6 ">
-                <h1 className="text-red-600 uppercase mb-5 font-semibold">
-                  thank you for shopping with us
-                </h1>
-                <span className="text-red-600">
-                  Please <b className="text-xl ">do not</b> close page while we
-                  process your order
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
-        {/* {message && <div id="payment-message">{message}</div>} */}
       </form>
     </div>
   );

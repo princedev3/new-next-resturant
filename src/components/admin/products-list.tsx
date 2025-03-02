@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MoreHorizontal } from "lucide-react";
-
 import {
   Popover,
   PopoverContent,
@@ -10,15 +9,23 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useGetProductsQuery } from "@/apis/_product_index.api";
+import { PaginationWithLinks } from "../pagination-with-link";
+import { useSearchParams } from "next/navigation";
+import Loading from "../loading";
 
 const ProductsList = () => {
-  const { data, isError, isLoading } = useGetProductsQuery();
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page");
+  const pageNumber = page ? page : "1";
+  const { data, isLoading } = useGetProductsQuery(pageNumber);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="">
       <div className=" gap-y-4 w-full">
-        {/* <div className=""></div> */}
-        {/* <h2 className="capitalize font-medium text-xl"></h2> */}
         <div className="">
           <table className="w-full border-collapse border border-gray-300 table-fixed">
             <thead>
@@ -39,8 +46,8 @@ const ProductsList = () => {
             </thead>
             <tbody>
               {data &&
-                data?.length > 0 &&
-                data?.map((item) => (
+                data?.allProducts.length > 0 &&
+                data?.allProducts.map((item) => (
                   <tr className="hover:bg-gray-100 group" key={item.id}>
                     <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                       {item?.name}
@@ -49,7 +56,7 @@ const ProductsList = () => {
                       {item?.price}
                     </td>
                     <td className="border border-gray-300 px-4 py-2 whitespace-nowrap text-center">
-                      {item?.desc}
+                      {item?.desc.slice(0, 15)}
                     </td>
                     <td className="border border-gray-300 px-4 whitespace-nowrap text-center py-2 relative">
                       <Popover>
@@ -61,7 +68,7 @@ const ProductsList = () => {
                             <MoreHorizontal className="w-5 h-5" />
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent>
+                        <PopoverContent className="grid gap-y-1">
                           <Link href={`/admin/${item.id} `}>view product</Link>
                         </PopoverContent>
                       </Popover>
@@ -70,6 +77,11 @@ const ProductsList = () => {
                 ))}
             </tbody>
           </table>
+          <PaginationWithLinks
+            pageSize={10}
+            page={parseInt((pageNumber as string) || "1")}
+            totalCount={data?.count as number}
+          />
         </div>
       </div>
     </div>

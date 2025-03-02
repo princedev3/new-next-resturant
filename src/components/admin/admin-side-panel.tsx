@@ -35,6 +35,12 @@ const AdminSidePanel = () => {
         >
           Manage Gallery
         </Link>
+        <Link
+          className="text-white h-full hover:bg-[#30a595] border-b-2 font-medium text-center py-3 capitalize cursor-pointer w-full  "
+          href={"/admin/order"}
+        >
+          Manage Orders
+        </Link>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import { useGetCouponQuery } from "@/apis/_coupon_index.api";
 import { useCreateOrderMutation } from "@/apis/_order_index.api";
 import { useSessionStore } from "@/sessions/auth-session";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/loading";
 
 const Cart = () => {
   const { data, isLoading } = useGetCouponQuery();
@@ -45,8 +46,13 @@ const Cart = () => {
       router.push(`/pay/${orderId}`);
     }
   }, [isSuccess, orderId]);
+
+  useEffect(() => {
+    useCartSore.persist.rehydrate();
+  }, []);
+
   if (isLoading) {
-    return <span className="">Loading...</span>;
+    return <Loading />;
   }
   return (
     <div>

@@ -40,9 +40,9 @@ const CountDownFunc = ({
 
   return (
     <Marquee className="w-full">
-      <div className=" text-white text-center items-center gap-3 flex p-4 h-full">
-        <p className="text-lg font-bold">Apply coupon for purchase over $50</p>
-        <p className="text-xl">{`${hours}h ${minutes}m ${seconds}s`}</p>
+      <div className=" text-white text-center items-center gap-3 flex py-4 h-full">
+        <p className="text-sm  font-bold">Apply coupon for purchase over $50</p>
+        <p className="text-sm ">{`${hours}h ${minutes}m ${seconds}s`}</p>
         <Button
           onClick={handleCopy}
           className=" bg-white  text-[#EA6D27] hover:bg-white hover:scale-105 transition-all duration-700 "

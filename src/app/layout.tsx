@@ -34,7 +34,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full max-w-7xl grid mx-auto`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full max-w-7xl grid mx-auto px-4 `}
       >
         <SessionProvider session={session}>
           <RtkProvider>

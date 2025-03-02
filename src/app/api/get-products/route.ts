@@ -12,8 +12,17 @@ cloud.config({
 
 export const GET = async (req: NextRequest) => {
   try {
-    const allProducts = await prisma.product.findMany();
-    return NextResponse.json(allProducts);
+    const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
+    const POST_PER_PAGE = 10;
+    const [allProducts, count] = await prisma.$transaction([
+      prisma.product.findMany({
+        take: POST_PER_PAGE,
+        skip: POST_PER_PAGE * (page - 1),
+      }),
+      prisma.product.count(),
+    ]);
+
+    return NextResponse.json({ allProducts, count, status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

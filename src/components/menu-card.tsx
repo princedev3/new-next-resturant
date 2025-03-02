@@ -1,24 +1,13 @@
 "use client";
 import { Product } from "@prisma/client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useCartSore } from "@/static/cartstore";
 
 const MenuCard = ({ item }: { item: Product }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const addToCart = useCartSore((state) => state.addToCart);
-
-  // useEffect(() => {
-  //   if (!item?.image || item.image.length <= 1) return;
-  //   const changeImage = setInterval(() => {
-  //     setCurrentImageIndex((prev) =>
-  //       prev === item.image.length - 1 ? 0 : prev + 1
-  //     );
-  //   }, 5000);
-  //   return () => clearInterval(changeImage);
-  // }, [item.image]);
 
   const handleAddToCart = async (item: Product) => {
     addToCart({
@@ -36,7 +25,6 @@ const MenuCard = ({ item }: { item: Product }) => {
           width={100}
           height={100}
         />
-        {/* <div className=" w-full grid gap-3"> */}
         <span className="text-base capitalize text-center text-gray-700">
           {item.name}{" "}
         </span>
@@ -47,12 +35,12 @@ const MenuCard = ({ item }: { item: Product }) => {
           {item.available === true ? "in store" : "not in store"}{" "}
         </span>
         <Button
+          disabled={!item.available}
           onClick={() => handleAddToCart(item)}
           className="motion-preset-slide-right motion-duration-75"
         >
-          add to cart
+          {!item.available ? "re-stocking" : " add to cart"}
         </Button>
-        {/* </div> */}
       </CardContent>
     </Card>
   );

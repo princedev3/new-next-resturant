@@ -17,7 +17,7 @@ const CountDown = () => {
     return null;
   }
   return (
-    <div className="h-[70px] bg-[#EA6D27] ">
+    <div className="h-[70px] bg-[#EA6D27] w-full">
       <CountDownFunc expiryDate={data[0]?.expiryDate} coupon={data[0].code} />
     </div>
   );
