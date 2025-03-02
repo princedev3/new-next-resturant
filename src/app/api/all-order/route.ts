@@ -18,7 +18,12 @@ export const GET = async (req: NextRequest) => {
         take: POST_PER_PAGE,
         skip: POST_PER_PAGE * (pageNumber - 1),
       }),
-      prisma.order.count(),
+      prisma.order.count({
+        where: {
+          active: "ACTIVE",
+          status: "payment successful, processing order",
+        },
+      }),
     ]);
 
     return NextResponse.json({ orders, count, status: 200 });

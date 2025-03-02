@@ -8,6 +8,7 @@ import RtkProvider from "@/provider/rtk-provider";
 import { auth } from "@/auth";
 import SessionProvider from "@/provider/session-provider";
 import CountDown from "@/components/count-down";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default async function RootLayout({
               <CountDown />
               <Navbar />
               {children}
+              <Toaster />
               <Footer />
             </AuthProvider>
           </RtkProvider>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import Marquee from "react-fast-marquee";
+import toast from "react-hot-toast";
 
 const CountDownFunc = ({
   expiryDate,
@@ -33,6 +34,7 @@ const CountDownFunc = ({
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(coupon);
+      toast.success("coupon copied");
     } catch (error) {
       console.error("Failed to copy:", error);
     }

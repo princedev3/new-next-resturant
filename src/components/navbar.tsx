@@ -106,6 +106,17 @@ const Navbar = () => {
                     </Link>
                   </div>
                 ))}
+                {sesssion?.user?.role === "ADMIN" && (
+                  <Link
+                    onClick={() => setOpen(false)}
+                    href={"/admin"}
+                    className={`
+           text-white font-semibold text-xl cursor-pointer capitalize`}
+                  >
+                    {" "}
+                    admin
+                  </Link>
+                )}
               </div>
             </div>
           </div>

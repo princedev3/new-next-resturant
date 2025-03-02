@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -14,22 +14,34 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-const formSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-});
+import { LoaderCircle } from "lucide-react";
 
 const Subscribe = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-    },
-  });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const [loading, setLoading] = useState(false);
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const target = event?.target as HTMLFormElement;
+    const formData = new FormData(target);
+    setLoading(true);
+    formData.append("access_key", process.env.NEXT_PUBLIC_WEBFORM as string);
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: json,
+    });
+    const result = await response.json();
+    if (result.success) {
+      target.reset();
+      setLoading(false);
+    }
+    setLoading(false);
   }
   return (
     <div className="relative   ">
@@ -42,32 +54,24 @@ const Subscribe = () => {
             Subscribing To our Newsletter
           </h1>
         </div>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-flow-col grid-cols-[3fr_1fr] gap-5 "
-          >
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="enter your email"
-                      className="bg-white"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="bg-[#EA6D27] hover:bg-[#EA6D27]">
-              subscribe
-            </Button>
-          </form>
-        </Form>
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-flow-col grid-cols-[3fr_1fr] gap-5 "
+        >
+          <Input
+            placeholder="enter your email"
+            name="email"
+            className="bg-white"
+          />
+
+          <Button type="submit" className="bg-[#EA6D27] hover:bg-[#EA6D27]">
+            {loading ? (
+              <LoaderCircle className="animate-spin text-center" size={20} />
+            ) : (
+              "subscribe"
+            )}
+          </Button>
+        </form>
       </div>
       <div className="bg-white mt-2 h-[100px] top-1/2 z-[0] left-0 absolute w-full " />
     </div>
