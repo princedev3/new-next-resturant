@@ -16,22 +16,20 @@ import { LoginSchema } from "@/static/schema";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  useLoginMutation,
-  useResetPasswordMutation,
-} from "@/apis/_user.index.api";
+import { useResetPasswordMutation } from "@/apis/_user.index.api";
 import { useSessionStore } from "@/sessions/auth-session";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormSuccess } from "@/components/form-success";
+import { loginAction } from "@/action/login-action";
 
 const Loginpage = () => {
   const router = useRouter();
   const [passwordString, setPasswordString] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [resetPassword, { isLoading: isChangingPassword }] =
     useResetPasswordMutation();
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -41,11 +39,11 @@ const Loginpage = () => {
   });
 
   async function onSubmit(values: z.infer<typeof LoginSchema>) {
-    const res = await login(values);
+    setIsLoading(true);
+    const res = await loginAction(values);
+    setIsLoading(false);
   }
-  if (isSuccess) {
-    router.push("/");
-  }
+
   const session = useSessionStore((state) => state.session);
   const email = session?.user?.email;
   const handleForgotPassword = async () => {
@@ -56,6 +54,7 @@ const Loginpage = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <div className="w-full max-w-4xl grid mx-auto mb-10 p-4">

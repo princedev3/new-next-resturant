@@ -7,18 +7,28 @@ import React, { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useCartSore } from "@/static/cartstore";
 import { useSessionStore } from "@/sessions/auth-session";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { signOut } from "next-auth/react";
 
 const Navbar = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const totalItems = useCartSore((state) => state.totalItems);
   const sesssion = useSessionStore((state) => state.session);
+  const setSession = useSessionStore((state) => state.setSession);
+
   const pathName = usePathname();
   const isAdminRoute = pathName.startsWith("/admin");
   useEffect(() => {
     useCartSore.persist.rehydrate();
   }, []);
 
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    setSession(null);
+    router.push("/login");
+  };
   return (
     <div className="h-[100px] w-full grid items-center grid-flow-col px-2 xl:px-0 ">
       <div className=" grid items-center h-full ">
@@ -75,6 +85,20 @@ const Navbar = () => {
             open ? "text-white" : "text-black"
           } md:hidden cursor-pointer !z-50`}
         />
+        {sesssion?.user ? (
+          <Button
+            onClick={handleLogout}
+            className="bg-[#EA6D27] hidden hover:bg-[#EA6D27] md:block cursor-pointer capitalize"
+          >
+            logout
+          </Button>
+        ) : (
+          <Button className="bg-[#EA6D27] hover:bg-[#EA6D27] capitalize hidden md:block cursor-pointer">
+            <Link href={"/login"} className="">
+              login
+            </Link>
+          </Button>
+        )}
         {
           <div
             className={`${
@@ -116,6 +140,20 @@ const Navbar = () => {
                     {" "}
                     admin
                   </Link>
+                )}
+                {sesssion?.user ? (
+                  <div
+                    onClick={handleLogout}
+                    className="text-white font-semibold text-xl  cursor-pointer capitalize"
+                  >
+                    logout
+                  </div>
+                ) : (
+                  <div className="text-white font-semibold text-xl capitalize  cursor-pointer">
+                    <Link href={"/login"} className="">
+                      login
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>

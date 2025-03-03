@@ -31,23 +31,22 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-full max-w-7xl grid mx-auto px-4 `}
       >
-        <SessionProvider session={session}>
-          <RtkProvider>
-            <AuthProvider>
+        <AuthProvider>
+          <SessionProvider session={session}>
+            <RtkProvider>
               <CountDown />
               <Navbar />
               {children}
               <Toaster />
               <Footer />
-            </AuthProvider>
-          </RtkProvider>
-        </SessionProvider>
+            </RtkProvider>
+          </SessionProvider>
+        </AuthProvider>
       </body>
     </html>
   );
