@@ -73,7 +73,7 @@ const Navbar = () => {
           size={30}
           className={`${
             open ? "text-white" : "text-black"
-          } md:hidden cursor-pointer z-50`}
+          } md:hidden cursor-pointer !z-50`}
         />
         {
           <div
@@ -88,7 +88,7 @@ const Navbar = () => {
                 open
                   ? "md:hidden w-full h-full fixed top-0 left-0 bg-[#EA6D27]  ease-in duration-500 transition-all"
                   : "-left-[100%] ease-in duration-500 transition-all w-full h-full fixed top-0 "
-              } `}
+              }  z-[10000]`}
             >
               <div className="flex flex-col gap-5 items-center justify-center gap-y-5  h-full ">
                 {menuData.map((item) => (

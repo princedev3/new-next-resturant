@@ -19,7 +19,7 @@ const Map = () => {
     className: "object-contain",
   });
   return (
-    <div>
+    <div className="!-z-10 ">
       <h1 className="text-lg font-semibold text-gray-800">Where we are?</h1>
       <Breadcrumb>
         <BreadcrumbList>
@@ -31,7 +31,7 @@ const Map = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="h-[40vh] w-full ">
+      <div className="h-[40vh] w-full pointer-events-none">
         <MapContainer
           center={[62.8924, 27.6778]}
           zoom={10}

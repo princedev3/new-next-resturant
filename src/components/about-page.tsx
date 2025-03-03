@@ -5,7 +5,7 @@ import Maps from "../components/map/index";
 
 const AboutPage = () => {
   return (
-    <div className="">
+    <div className="z-0">
       <Maps />
     </div>
   );

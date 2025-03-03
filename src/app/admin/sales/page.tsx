@@ -62,7 +62,7 @@ const SalesPage = () => {
 
   return (
     <div className="w-full overflow-hidden p-4">
-      <div className="relative w-full max-w-4xl mx-auto h-[300px] sm:h-[400px] lg:h-[500px]">
+      <div className="relative w-full mx-auto h-full ">
         <Line options={options} data={datas} />
       </div>
     </div>
