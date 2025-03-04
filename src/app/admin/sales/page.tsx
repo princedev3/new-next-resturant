@@ -31,6 +31,11 @@ const SalesPage = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: { display: true },
+      y: { display: true },
+    },
     plugins: {
       legend: {
         position: "top" as const,
@@ -61,9 +66,13 @@ const SalesPage = () => {
   };
 
   return (
-    <div className="w-full h-full overflow-hidden p-4">
-      <div className="relative w-full mx-auto h-full ">
-        <Line options={options} data={datas} />
+    <div className="w-full h-full   ">
+      <div className="relative w-full h-[400px] md:h-full ">
+        <Line
+          options={options}
+          style={{ height: "100%", width: "100%" }}
+          data={datas}
+        />
       </div>
     </div>
   );
