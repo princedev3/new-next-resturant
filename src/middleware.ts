@@ -16,14 +16,15 @@ export default async function middleware(req: NextRequest) {
     );
 
     const { pathname } = req.nextUrl;
+    if (token && authRoute.includes(pathname)) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
     if (token?.expiration && token.expiration * 1000 < Date.now()) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
 
     if (token?.role !== "ADMIN" && pathname.startsWith("/admin")) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-    if (token && authRoute.includes(pathname)) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
