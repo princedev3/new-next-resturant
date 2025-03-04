@@ -17,7 +17,7 @@ const Navbar = () => {
   const totalItems = useCartSore((state) => state.totalItems);
   const sesssion = useSessionStore((state) => state.session);
   const setSession = useSessionStore((state) => state.setSession);
-  console.log(open);
+
   const pathName = usePathname();
   const isAdminRoute = pathName.startsWith("/admin");
   useEffect(() => {
