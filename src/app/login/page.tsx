@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormSuccess } from "@/components/form-success";
 import { loginAction } from "@/action/login-action";
+import toast from "react-hot-toast";
 
 const Loginpage = () => {
   const router = useRouter();
@@ -41,6 +42,11 @@ const Loginpage = () => {
   async function onSubmit(values: z.infer<typeof LoginSchema>) {
     setIsLoading(true);
     const res = await loginAction(values);
+    if (res.status === 500) {
+      toast.error("invalid");
+      setIsLoading(false);
+      return;
+    }
     setIsLoading(false);
   }
 

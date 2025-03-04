@@ -42,7 +42,7 @@ export const loginAction = async (body: z.infer<typeof LoginSchema>) => {
     );
 
     if (!isPasswordCorrect) {
-      return NextResponse.json({ message: "Invalid password" });
+      return { message: "Invalid password", status: 500 };
     }
 
     const redirectTo = isUserExist.role === "ADMIN" ? "/admin" : "/";

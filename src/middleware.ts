@@ -9,14 +9,9 @@ export default async function middleware(req: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     })) as { expiration?: number; role?: string };
 
-    console.log("Token in Middleware (Production):", token);
-    console.log(
-      "NEXTAUTH_SECRET:",
-      process.env.NEXTAUTH_SECRET ? "Exists" : "Missing"
-    );
-
     const { pathname } = req.nextUrl;
-    if (token && authRoute.includes(pathname)) {
+
+    if (token && authRoute.some((route) => pathname.startsWith(route))) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
@@ -43,4 +38,5 @@ export const config = {
     "/new-password",
     "/new-verification",
   ],
+  runtime: "nodejs",
 };

@@ -10,6 +10,7 @@ import { useCreateOrderMutation } from "@/apis/_order_index.api";
 import { useSessionStore } from "@/sessions/auth-session";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const { data, isLoading } = useGetCouponQuery();
@@ -18,7 +19,7 @@ const Cart = () => {
   const [orderId, setOrderId] = useState("");
   const [coupon, setCoupon] = useState("");
   const session = useSessionStore((state) => state.session);
-  console.log(session);
+
   const router = useRouter();
 
   const isExpired =
@@ -32,6 +33,10 @@ const Cart = () => {
 
   const finalPrice = product.reduce((acc, cur) => acc + cur.price, 0);
   const handlePayment = async () => {
+    if (!session) {
+      toast.error("you need to login");
+      router.push("/login");
+    }
     const res = await createOrder({
       coupon,
       price: finalPrice,

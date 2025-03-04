@@ -1,5 +1,3 @@
-"use server";
-
 import { LoginSchema } from "@/static/schema";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
@@ -37,10 +35,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
     );
 
     if (!isPasswordCorrect) {
-      return NextResponse.json(
-        { message: "user does not exist" },
-        { status: 500 }
-      );
+      return NextResponse.json({ message: "user does not exist", status: 500 });
     }
 
     await signIn("credentials", {
