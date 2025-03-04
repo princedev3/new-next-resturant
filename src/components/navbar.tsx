@@ -1,6 +1,6 @@
 "use client";
 import { menuData } from "@/static/data";
-import { AlignJustify } from "lucide-react";
+import { AlignJustify, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ const Navbar = () => {
   const totalItems = useCartSore((state) => state.totalItems);
   const sesssion = useSessionStore((state) => state.session);
   const setSession = useSessionStore((state) => state.setSession);
-
+  console.log(open);
   const pathName = usePathname();
   const isAdminRoute = pathName.startsWith("/admin");
   useEffect(() => {
@@ -78,14 +78,21 @@ const Navbar = () => {
             </span>
           </button>
         </Link>
-
-        <AlignJustify
-          onClick={() => setOpen(!open)}
-          size={30}
-          className={`${
-            open ? "text-white" : "text-black"
-          } md:hidden cursor-pointer !z-50`}
-        />
+        {open ? (
+          <X
+            onClick={() => setOpen(false)}
+            size={50}
+            className="cursor-pointer border rounded-full border-white p-[6px] !z-50 text-white"
+          />
+        ) : (
+          <AlignJustify
+            onClick={() => setOpen(!open)}
+            size={30}
+            className={`${
+              open ? "text-white" : "text-black"
+            } md:hidden cursor-pointer !z-50`}
+          />
+        )}
         {sesssion?.user ? (
           <Button
             onClick={handleLogout}

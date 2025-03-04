@@ -18,6 +18,7 @@ const Cart = () => {
   const [orderId, setOrderId] = useState("");
   const [coupon, setCoupon] = useState("");
   const session = useSessionStore((state) => state.session);
+  console.log(session);
   const router = useRouter();
 
   const isExpired =

@@ -34,7 +34,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       user.customExpiration = expiration;
       return true;
     },
-    async jwt({ user, token }) {
+    async jwt({ token, user }) {
       if (!token.sub) return token;
       const existingUser = await findUserById(token.sub);
       if (!existingUser) return token;
@@ -42,7 +42,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Always set role and expiration, not just when user.customExpiration exists
       token.role = existingUser.role;
       token.expiration =
-        token.expiration || Math.floor(Date.now() / 1000) + 12 * 60 * 60; // Set default expiration
+        token.expiration || Math.floor(Date.now() / 1000) + 12 * 60 * 60;
+
       return token;
       // if (!token.sub) return token;
 

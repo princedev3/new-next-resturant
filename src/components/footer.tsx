@@ -78,7 +78,7 @@ const Footer = () => {
       <div className="grid gap-y-4 sm:grid-flow-col">
         <div className="">
           <span className="text-gray-600 text-sm">
-            &copy; 2022 Restaurants. All Right Reserved. Designed by Isaac
+            &copy; 2025 Restaurants. All Right Reserved. Designed by Prince
           </span>
         </div>
         <div className="grid grid-flow-col auto-cols-max gap-5 sm:justify-end">
