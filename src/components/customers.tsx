@@ -52,10 +52,7 @@ const Customers = () => {
           >
             <CarouselContent>
               {carouselData.map((item, index) => (
-                <CarouselItem
-                  key={index}
-                  className="max-h-[50vh]   grid w-full max-w-xl "
-                >
+                <CarouselItem key={index} className="   grid w-full max-w-xl ">
                   <Card className="h-full grid w-full max-w-xl ">
                     <CardContent className="grid  w-full gap-y-3 mx-auto justify-center">
                       <div className="flex w-full flex-col items-center justify-center">

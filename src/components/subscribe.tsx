@@ -45,7 +45,7 @@ const Subscribe = () => {
   }
   return (
     <div className="relative   ">
-      <div className="mx-auto w-full grid gap-y-3 max-h-[40vh]  bg-[url('/bg1.png')] bg-cover bg-center bg-no-repeat rounded-lg max-w-2xl relative !z-50 p-5 ">
+      <div className="mx-auto w-full grid gap-y-3 min-h-[10vh]  bg-[url('/bg1.png')] bg-cover bg-center bg-no-repeat rounded-lg max-w-2xl relative !z-50 p-5 ">
         <div className="text-white">
           <h1 className="text-xl font-semibold text-center">
             Get Or Promo Code by
