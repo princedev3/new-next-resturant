@@ -10,10 +10,9 @@ export default async function middleware(req: NextRequest) {
     })) as { expiration?: number; role?: string };
 
     const { pathname } = req.nextUrl;
-    console.log(
-      "NEXTAUTH_SECRET:",
-      process.env.NEXTAUTH_SECRET ? "Exists" : "Missing"
-    );
+    if (!token) {
+      return NextResponse.next();
+    }
     if (
       (token?.role === "ADMIN" || token.role === "USER") &&
       authRoute.some((route) => pathname.startsWith(route))
