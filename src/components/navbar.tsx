@@ -57,17 +57,17 @@ const Navbar = () => {
             </Link>
           </div>
         ))}
-        {sesssion?.user?.role === "ADMIN" && (
-          <Link
-            href={"/admin"}
-            className={`${
-              isAdminRoute ? "text-[#EA6D27] " : ""
-            } cursor-pointer capitalize`}
-          >
-            {" "}
-            admin
-          </Link>
-        )}
+        {/* {sesssion?.user?.role === "ADMIN" && ( */}
+        <Link
+          href={"/admin"}
+          className={`${
+            isAdminRoute ? "text-[#EA6D27] " : ""
+          } cursor-pointer capitalize`}
+        >
+          {" "}
+          admin
+        </Link>
+        {/* )} */}
       </div>
       <div className=" grid grid-flow-col gap-2 justify-end items-center h-full ">
         <Link href={"/cart"}>
@@ -131,17 +131,17 @@ const Navbar = () => {
                     </Link>
                   </div>
                 ))}
-                {sesssion?.user?.role === "ADMIN" && (
-                  <Link
-                    onClick={() => setOpen(false)}
-                    href={"/admin"}
-                    className={`
+                {/* {sesssion?.user?.role === "ADMIN" && ( */}
+                <Link
+                  onClick={() => setOpen(false)}
+                  href={"/admin"}
+                  className={`
            text-white font-semibold text-xl cursor-pointer capitalize`}
-                  >
-                    {" "}
-                    admin
-                  </Link>
-                )}
+                >
+                  {" "}
+                  admin
+                </Link>
+                {/* )} */}
                 {sesssion?.user ? (
                   <div
                     onClick={handleLogout}
