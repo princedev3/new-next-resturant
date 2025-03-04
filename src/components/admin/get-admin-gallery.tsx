@@ -28,7 +28,7 @@ const GetAdminGallery = () => {
       <table className="w-full border-collapse border border-gray-300 table-fixed">
         <thead>
           <tr className="bg-gray-200">
-            <th className="border lg:table-cell  border-gray-300 px-4 py-2  text-center capitalize">
+            <th className="border hidden lg:table-cell  border-gray-300 px-4 py-2  text-center capitalize">
               Name
             </th>
             <th className="border  lg:table-cell border-gray-300 px-4 py-2  text-center capitalize">
@@ -44,7 +44,7 @@ const GetAdminGallery = () => {
             data?.length > 0 &&
             data?.map((item) => (
               <tr className="hover:bg-gray-100 group" key={item.id}>
-                <td className="border lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
+                <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                   {item?.name}
                 </td>
                 <td

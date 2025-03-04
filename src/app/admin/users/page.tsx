@@ -27,10 +27,10 @@ const UserList = () => {
               <th className="border  hidden lg:table-cell  border-gray-300 px-4 py-2  text-center capitalize">
                 ID
               </th>
-              <th className="border hidden lg:table-cell border-gray-300 px-4 py-2  text-center capitalize">
+              <th className="border  border-gray-300 px-4 py-2  text-center capitalize">
                 Name
               </th>
-              <th className="border  border-gray-300 px-4 py-2  text-center capitalize">
+              <th className="border hidden lg:table-cell   border-gray-300 px-4 py-2  text-center capitalize">
                 email
               </th>
               <th className="border border-gray-300 px-4 py-2  text-center capitalize">
@@ -46,10 +46,10 @@ const UserList = () => {
                   <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                     {item?.id}
                   </td>
-                  <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
+                  <td className="border  border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                     {item?.name}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap text-center">
+                  <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                     {item?.email}
                   </td>
                   <td className="border cursor-pointer border-gray-300 px-4 whitespace-nowrap text-center py-2 relative">

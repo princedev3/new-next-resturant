@@ -30,10 +30,10 @@ const OrderPage = () => {
             <th className="border  hidden lg:table-cell  border-gray-300 px-4 py-2  text-center capitalize">
               ID
             </th>
-            <th className="border hidden lg:table-cell border-gray-300 px-4 py-2  text-center capitalize">
+            <th className="border  border-gray-300 px-4 py-2  text-center capitalize">
               Price
             </th>
-            <th className="border  border-gray-300 px-4 py-2  text-center capitalize">
+            <th className="border hidden lg:table-cell border-gray-300 px-4 py-2  text-center capitalize">
               email
             </th>
             <th className="border border-gray-300 px-4 py-2  text-center capitalize">
@@ -49,10 +49,10 @@ const OrderPage = () => {
                 <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                   {item?.id}
                 </td>
-                <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
+                <td className="border  border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                   {item?.price}
                 </td>
-                <td className="border border-gray-300 px-4 py-2 whitespace-nowrap text-center">
+                <td className="border hidden lg:table-cell border-gray-300 px-4 py-2 whitespace-nowrap text-center">
                   {item?.userEmail}
                 </td>
                 <td className="border cursor-pointer border-gray-300 px-4 whitespace-nowrap text-center py-2 relative">

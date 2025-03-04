@@ -4,11 +4,12 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import Loading from "@/components/loading";
 
 const Gallery = () => {
   const { data, isLoading } = useGetGalleryQuery();
   if (isLoading) {
-    return <span className="">Loading...</span>;
+    return <Loading />;
   }
   return (
     <div className="grid gap-y-3 my-4">

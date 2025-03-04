@@ -26,6 +26,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await signOut({ redirect: false });
+    setOpen(false);
     setSession(null);
     router.push("/login");
   };
