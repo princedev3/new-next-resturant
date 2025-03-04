@@ -10,9 +10,7 @@ export default async function middleware(req: NextRequest) {
     })) as { expiration?: number; role?: string };
 
     const { pathname } = req.nextUrl;
-    if (!token) {
-      return NextResponse.next();
-    }
+
     if (token && authRoute.some((route) => pathname.startsWith(route))) {
       return NextResponse.redirect(new URL("/", req.url));
     }
