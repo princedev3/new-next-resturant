@@ -18,9 +18,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRegisterMutation } from "@/apis/_user.index.api";
 import { LoaderCircle } from "lucide-react";
+import { useEffect, useLayoutEffect } from "react";
+import toast from "react-hot-toast";
+import { useSessionStore } from "@/sessions/auth-session";
+import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
+  const session = useSessionStore((state) => state.session);
   const [register, { isError, isLoading, isSuccess }] = useRegisterMutation();
+  const router = useRouter();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -29,7 +35,17 @@ const RegisterPage = () => {
       password: "",
     },
   });
+  useEffect(() => {
+    if (isError) {
+      toast.error("invalid");
+    }
+  }, [isError]);
 
+  useLayoutEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session]);
   async function onSubmit(values: z.infer<typeof RegisterSchema>) {
     const res = await register(values);
   }

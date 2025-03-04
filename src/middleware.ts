@@ -11,9 +11,9 @@ export default async function middleware(req: NextRequest) {
 
     const { pathname } = req.nextUrl;
 
-    if (token && authRoute.some((route) => pathname.startsWith(route))) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
+    // if (token && authRoute.some((route) => pathname.startsWith(route))) {
+    //   return NextResponse.redirect(new URL("/", req.url));
+    // }
 
     if (token?.expiration && token.expiration * 1000 < Date.now()) {
       return NextResponse.redirect(new URL("/login", req.url));

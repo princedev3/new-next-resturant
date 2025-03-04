@@ -2,10 +2,12 @@
 import { ClipLoader } from "react-spinners";
 import { useVerifyEmailMutation } from "@/apis/_user.index.api";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { FormSuccess } from "@/components/form-success";
+import { useSessionStore } from "@/sessions/auth-session";
 
 const EmailVerification = () => {
+  const session = useSessionStore((state) => state.session);
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -19,6 +21,11 @@ const EmailVerification = () => {
     };
     verifyAccount();
   }, [token]);
+  useLayoutEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session]);
   if (isSuccess) {
     router.push("/login");
   }

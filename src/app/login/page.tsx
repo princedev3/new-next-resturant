@@ -20,7 +20,7 @@ import { useResetPasswordMutation } from "@/apis/_user.index.api";
 import { useSessionStore } from "@/sessions/auth-session";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { FormSuccess } from "@/components/form-success";
 import { loginAction } from "@/action/login-action";
 import toast from "react-hot-toast";
@@ -61,6 +61,11 @@ const Loginpage = () => {
     }
   };
 
+  useLayoutEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session]);
   return (
     <>
       <div className="w-full max-w-4xl grid mx-auto mb-10 p-4">
