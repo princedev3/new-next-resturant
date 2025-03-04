@@ -13,10 +13,7 @@ export default async function middleware(req: NextRequest) {
     if (!token) {
       return NextResponse.next();
     }
-    if (
-      (token?.role === "ADMIN" || token.role === "USER") &&
-      authRoute.some((route) => pathname.startsWith(route))
-    ) {
+    if (token && authRoute.some((route) => pathname.startsWith(route))) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
