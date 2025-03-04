@@ -14,7 +14,7 @@ export default async function middleware(req: NextRequest) {
       "NEXTAUTH_SECRET:",
       process.env.NEXTAUTH_SECRET ? "Exists" : "Missing"
     );
-    if (token && authRoute.some((route) => pathname.startsWith(route))) {
+    if (token.role && authRoute.some((route) => pathname.startsWith(route))) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
