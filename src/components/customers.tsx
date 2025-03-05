@@ -61,7 +61,7 @@ const Customers = () => {
                           width={120}
                           alt=""
                           height={120}
-                          className="rounded-full mx-auto object-cover"
+                          className="rounded-full w-[120px] h-[120px] mx-auto object-cover"
                         />
                         <StarRating rating={item.rating} />
                       </div>

@@ -3,36 +3,53 @@ import Image from "next/image";
 import React from "react";
 import { Facebook, Instagram, Twitter } from "lucide-react";
 import { Separator } from "./ui/separator";
+import Link from "next/link";
 
 const Footer = () => {
   return (
     <div className="grid gap-y-10 relative">
-      <div className="w-[400px] h-[400px] absolute -translate-x-1/2 left-1/2 -translate-y-1/2 top-1/2  bg-[url('/Group.png')] bg-cover  bg-no-repeat" />
+      <div className="w-[400px] h-[400px] absolute -translate-x-1/2 left-1/2 -translate-y-1/2 top-1/2  bg-[url('/Group.png')] bg-cover  bg-no-repeat -z-0" />
       {/* top */}
       <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-        <div className="self-start grid gap-y-3">
-          <Image
-            src={"/logo.png"}
-            width={120}
-            height={120}
-            alt=""
-            className="object-cover"
-          />
+        <div className="self-start grid gap-y-3 z-50">
+          <Link href={"/"}>
+            <Image
+              src={"/logo.png"}
+              width={120}
+              height={120}
+              alt=""
+              className="object-cover"
+            />
+          </Link>
           <span className="text-gray-600 text-sm">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore .Learn more
           </span>
         </div>
-        <div className="grid gap-y-4 self-start">
+        <div className="grid gap-y-4 self-start z-50">
           <span className="text-black text-lg font-semibold uppercase">
             Navigation
           </span>
-          <span className="text-gray-600 text-sm">Menu</span>
-          <span className="text-gray-600 text-sm">About us </span>
-          <span className="text-gray-600 text-sm">Contact us </span>
-          <span className="text-gray-600 text-sm">Main dishes</span>
+          <Link href={"/menu"} className="text-gray-600 text-sm cursor-pointer">
+            Menu
+          </Link>
+          <Link
+            href={"/about"}
+            className="text-gray-600 text-sm cursor-pointer"
+          >
+            About us{" "}
+          </Link>
+          <Link
+            href={"/contact"}
+            className="text-gray-600 text-sm cursor-pointer"
+          >
+            Contact us{" "}
+          </Link>
+          <Link href={"/menu"} className="text-gray-600 text-sm cursor-pointer">
+            Main dishes
+          </Link>
         </div>
-        <div className="grid gap-y-4 self-start">
+        <div className="grid gap-y-4 self-start z-50">
           <span className="text-black text-lg font-semibold uppercase">
             dishes
           </span>
@@ -41,7 +58,7 @@ const Footer = () => {
           <span className="text-gray-600 text-sm">Egg & Cocumber</span>
           <span className="text-gray-600 text-sm"> Lumpia w/Suace</span>
         </div>
-        <div className="grid gap-y-5 self-start">
+        <div className="grid gap-y-5 self-start z-50">
           <span className="text-black text-lg font-semibold uppercase">
             FOLLOW US
           </span>
@@ -55,7 +72,6 @@ const Footer = () => {
             <div className="border p-2 rounded-full flex items-center justify-center">
               <Twitter className="text-gray-600" />
             </div>
-            {/* <div className="w-[100px] border " /> */}
           </div>
         </div>
       </div>
