@@ -16,76 +16,32 @@ import { LoaderCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { passwordVerification } from "@/static/schema";
 import { useEnterNewPasswordMutation } from "@/apis/_user.index.api";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useSessionStore } from "@/sessions/auth-session";
 
 const NewPassword = () => {
-  // const session = useSessionStore((state) => state.session);
-
-  // const searchParams = useSearchParams();
-  // const router = useRouter();
-  // const token = searchParams.get("token");
-  // const [enterNewPassword, { isLoading, isSuccess }] =
-  //   useEnterNewPasswordMutation();
-  // const form = useForm<z.infer<typeof passwordVerification>>({
-  //   resolver: zodResolver(passwordVerification),
-  //   defaultValues: {
-  //     password: "",
-  //   },
-  // });
-  // async function onSubmit(values: z.infer<typeof passwordVerification>) {
-  //   if (!token) return;
-  //   const res = await enterNewPassword({ ...values, token });
-  // }
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     router.push("/login");
-  //   }
-  // }, [isSuccess]);
-
-  // useLayoutEffect(() => {
-  //   if (session && !token) {
-  //     router.push("/");
-  //   }
-  // }, [session, token]);
-
   const session = useSessionStore((state) => state.session);
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
-
   const [enterNewPassword, { isLoading, isSuccess }] =
     useEnterNewPasswordMutation();
-
   const form = useForm<z.infer<typeof passwordVerification>>({
     resolver: zodResolver(passwordVerification),
     defaultValues: {
       password: "",
     },
   });
-
   async function onSubmit(values: z.infer<typeof passwordVerification>) {
     if (!token) return;
-    await enterNewPassword({ ...values, token });
+    const res = await enterNewPassword({ ...values, token });
   }
-
   useEffect(() => {
     if (isSuccess) {
       router.push("/login");
     }
-  }, [isSuccess, router]);
-
-  useEffect(() => {
-    if (!token) {
-      router.push("/login");
-    }
-  }, [token, router]);
-
-  useLayoutEffect(() => {
-    if (session && token) {
-      router.push("/");
-    }
-  }, [session, token, router]);
+  }, [isSuccess]);
 
   return (
     <div className="grid max-w-4xl mx-auto w-full my-4 px-4 mb-10 ">
