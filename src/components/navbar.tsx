@@ -158,7 +158,11 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className="text-white font-semibold text-xl capitalize  cursor-pointer">
-                    <Link href={"/login"} className="">
+                    <Link
+                      onClick={() => setOpen(false)}
+                      href={"/login"}
+                      className=""
+                    >
                       login
                     </Link>
                   </div>

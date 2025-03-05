@@ -11,7 +11,7 @@ const transporter = createTransport({
 
 export const sendVerificationEmail = async (email: string, token: string) => {
   const confirmLink = `${process.env
-    .NEXTAUTH_URL!}/new-verification?token=${token}`;
+    .BASE_URL!}/new-verification?token=${token}`;
   const mailOptions: Mail.Options = {
     from: "Resturant",
     to: email,
@@ -26,8 +26,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const confirmLink = `${process.env
-    .NEXTAUTH_URL!}/new-password?token=${token}`;
+  const confirmLink = `${process.env.BASE_URL!}/new-password?token=${token}`;
 
   const mailOptions = {
     from: "Resturant",
