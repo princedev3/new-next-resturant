@@ -26,9 +26,12 @@ const EmailVerification = () => {
       router.push("/");
     }
   }, [session]);
-  if (isSuccess) {
-    router.push("/login");
-  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/login");
+    }
+  }, [isSuccess]);
 
   return (
     <div className="grid max-w-4xl mx-auto w-full my-4 px-4 mb-10 ">

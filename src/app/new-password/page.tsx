@@ -21,6 +21,7 @@ import { useSessionStore } from "@/sessions/auth-session";
 
 const NewPassword = () => {
   const session = useSessionStore((state) => state.session);
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");

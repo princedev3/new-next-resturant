@@ -61,11 +61,6 @@ const Loginpage = () => {
     }
   };
 
-  useLayoutEffect(() => {
-    if (session) {
-      router.push("/");
-    }
-  }, [session]);
   return (
     <>
       <div className="w-full max-w-4xl grid mx-auto mb-10 p-4">

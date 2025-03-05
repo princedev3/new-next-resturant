@@ -41,6 +41,12 @@ const RegisterPage = () => {
     }
   }, [isError]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("account created check your email for verification");
+    }
+  }, [isSuccess]);
+
   useLayoutEffect(() => {
     if (session) {
       router.push("/");
