@@ -43,10 +43,10 @@ const NewPassword = () => {
   }, [isSuccess]);
 
   useLayoutEffect(() => {
-    if (session) {
+    if (session && !token) {
       router.push("/");
     }
-  }, [session]);
+  }, [session, token]);
   return (
     <div className="grid max-w-4xl mx-auto w-full my-4 px-4 mb-10 ">
       <div className="w-full flex items-center justify-center flex-col gap-6">
