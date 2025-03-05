@@ -16,7 +16,7 @@ import { LoaderCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { passwordVerification } from "@/static/schema";
 import { useEnterNewPasswordMutation } from "@/apis/_user.index.api";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useSessionStore } from "@/sessions/auth-session";
 
 const NewPassword = () => {
@@ -42,6 +42,12 @@ const NewPassword = () => {
       router.push("/login");
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (session && !token) {
+      router.push("/");
+    }
+  }, [session, token]);
 
   return (
     <div className="grid max-w-4xl mx-auto w-full my-4 px-4 mb-10 ">

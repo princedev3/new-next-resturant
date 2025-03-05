@@ -21,11 +21,12 @@ const EmailVerification = () => {
     };
     verifyAccount();
   }, [token]);
+
   useLayoutEffect(() => {
-    if (session) {
+    if (session && !token) {
       router.push("/");
     }
-  }, [session]);
+  }, [session, token]);
 
   useEffect(() => {
     if (isSuccess) {
