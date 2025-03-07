@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
-import DatePicker from "react-datepicker";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -30,9 +29,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useGetGalleryQuery } from "@/apis/_gallery_index.api";
-// import DatePicker from "react-datepicker";
-// import { DayPicker } from "react-day-picker";
-// import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useCreateEventOrderMutation } from "@/apis/_event_index.api";
 import {
   calculateDurationWithDate,
@@ -143,7 +141,7 @@ const Events = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        {/* <DatePicker
+                       <DatePicker
                           selected={startTime}
                           onChange={(time) => {
                             setStartTime(time);
@@ -157,7 +155,7 @@ const Events = () => {
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           className="border rounded-md p-2 w-full"
-                        /> */}
+                        /> 
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
@@ -183,7 +181,7 @@ const Events = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        {/* <DatePicker
+                         <DatePicker
                           selected={endTime}
                           onChange={(time) => {
                             setEndTime(time);
@@ -197,7 +195,7 @@ const Events = () => {
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           className="border rounded-md p-2 w-full"
-                        /> */}
+                        /> 
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
