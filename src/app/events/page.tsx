@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
-import { Portal } from "@radix-ui/react-portal";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -31,7 +30,7 @@ import {
 } from "@/components/ui/select";
 import { useGetGalleryQuery } from "@/apis/_gallery_index.api";
 // import DatePicker from "react-datepicker";
-import { DayPicker } from "react-day-picker";
+// import { DayPicker } from "react-day-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCreateEventOrderMutation } from "@/apis/_event_index.api";
 import {
