@@ -32,7 +32,7 @@ import {
 import { useGetGalleryQuery } from "@/apis/_gallery_index.api";
 // import DatePicker from "react-datepicker";
 // import { DayPicker } from "react-day-picker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import { useCreateEventOrderMutation } from "@/apis/_event_index.api";
 import {
   calculateDurationWithDate,
