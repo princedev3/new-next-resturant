@@ -60,33 +60,13 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        Caption: ({ displayMonth }) => (
-          <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">
-              {format(displayMonth, "MMMM yyyy")}
-            </span>
-          </div>
+        IconLeft: ({ className, ...props }) => (
+          <ChevronLeft className={cn("h-4 w-4", className)} {...props} />
         ),
-        Nav: ({ nextMonth, previousMonth, goToMonth }) => (
-          <div className="flex justify-between">
-            <button
-              disabled={!previousMonth}
-              onClick={() => previousMonth && goToMonth(previousMonth)}
-              className="p-2 rounded-md hover:bg-gray-100"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              disabled={!nextMonth}
-              onClick={() => nextMonth && goToMonth(nextMonth)}
-              className="p-2 rounded-md hover:bg-gray-100"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+        IconRight: ({ className, ...props }) => (
+          <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
       }}
-      
       {...props}
     />
   )
