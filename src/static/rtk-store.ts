@@ -1,4 +1,5 @@
 import { couponApi } from "@/apis/_coupon_index.api";
+import { eventApi } from "@/apis/_event_index.api";
 import { galleryApi } from "@/apis/_gallery_index.api";
 import { orderApi } from "@/apis/_order_index.api";
 import { productApi } from "@/apis/_product_index.api";
@@ -12,6 +13,7 @@ export const store = configureStore({
     [couponApi.reducerPath]: couponApi.reducer,
     [galleryApi.reducerPath]: galleryApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
+    [eventApi.reducerPath]: eventApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -19,5 +21,6 @@ export const store = configureStore({
       .concat(productApi.middleware)
       .concat(couponApi.middleware)
       .concat(orderApi.middleware)
-      .concat(galleryApi.middleware),
+      .concat(galleryApi.middleware)
+      .concat(eventApi.middleware),
 });

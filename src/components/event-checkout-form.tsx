@@ -9,7 +9,7 @@ import { Button } from "./ui/button";
 import { LoaderCircle } from "lucide-react";
 import { useParams } from "next/navigation";
 
-export default function CheckoutForm({
+export default function EventCheckoutForm({
   clientSecret,
 }: {
   clientSecret: string;
@@ -61,7 +61,7 @@ export default function CheckoutForm({
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/success`,
+        return_url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/eventsuccess`,
       },
     });
 
@@ -99,5 +99,3 @@ export default function CheckoutForm({
     </div>
   );
 }
-
-// payment_intent=pi_3QxOFiJvEcBpkSVx0rwlcGYZ&payment_intent_client_secret=pi_3QxOFiJvEcBpkSVx0rwlcGYZ_secret_xDcjR5T0tDQOxCWKLafV4ttF2&redirect_status=succeeded

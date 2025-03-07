@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="w-[400px] h-[400px] absolute -translate-x-1/2 left-1/2 -translate-y-1/2 top-1/2  bg-[url('/Group.png')] bg-cover  bg-no-repeat -z-0" />
       {/* top */}
       <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-        <div className="self-start grid gap-y-3 z-50">
+        <div className="self-start grid gap-y-3 z-20">
           <Link href={"/"}>
             <Image
               src={"/logo.png"}
@@ -26,7 +26,7 @@ const Footer = () => {
             eiusmod tempor incididunt ut labore et dolore .Learn more
           </span>
         </div>
-        <div className="grid gap-y-4 self-start z-50">
+        <div className="grid gap-y-4 self-start z-20">
           <span className="text-black text-lg font-semibold uppercase">
             Navigation
           </span>
@@ -49,16 +49,25 @@ const Footer = () => {
             Main dishes
           </Link>
         </div>
-        <div className="grid gap-y-4 self-start z-50">
+        <div className="grid gap-y-4 self-start z-20">
           <span className="text-black text-lg font-semibold uppercase">
             dishes
           </span>
-          <span className="text-gray-600 text-sm">Fish & Viggies </span>
-          <span className="text-gray-600 text-sm">Tofu Chili </span>
-          <span className="text-gray-600 text-sm">Egg & Cocumber</span>
-          <span className="text-gray-600 text-sm"> Lumpia w/Suace</span>
+          <span className="text-gray-600 text-sm cursor-pointer">
+            Fish & Viggies{" "}
+          </span>
+          <span className="text-gray-600 text-sm cursor-pointer">
+            Tofu Chili{" "}
+          </span>
+          <span className="text-gray-600 text-sm cursor-pointer">
+            Egg & Cocumber
+          </span>
+          <span className="text-gray-600 text-sm cursor-pointer">
+            {" "}
+            Lumpia w/Suace
+          </span>
         </div>
-        <div className="grid gap-y-5 self-start z-50">
+        <div className="grid gap-y-5 self-start z-20">
           <span className="text-black text-lg font-semibold uppercase">
             FOLLOW US
           </span>

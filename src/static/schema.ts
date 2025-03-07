@@ -66,3 +66,20 @@ export const gallerySchema = z.object({
       message: "Image must be an array of files.",
     }),
 });
+
+export const eventSchema = z.object({
+  dob: z.date({
+    required_error: "A date of bookig is required.",
+  }),
+  gallery: z.string({
+    required_error: "Please select a dinning.",
+  }),
+  startTime: z
+    .string()
+    .min(1, "Start time is required")
+    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "Invalid time format (HH:MM)"),
+  endTime: z
+    .string()
+    .min(1, "Start time is required")
+    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, "Invalid time format (HH:MM)"),
+});

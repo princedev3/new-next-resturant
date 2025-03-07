@@ -115,11 +115,11 @@ const Loginpage = () => {
                   </FormItem>
                 )}
               />
-              <span
+              <div
                 onClick={handleForgotPassword}
-                className="text-sm text-gray-700 cursor-pointer"
+                className="text-sm text-gray-700 cursor-pointer w-fit"
               >
-                <div className="grid gap-y-2">
+                <div className="w-fit">
                   {isChangingPassword ? (
                     <LoaderCircle
                       className="animate-spin text-center"
@@ -130,7 +130,7 @@ const Loginpage = () => {
                   )}
                   {passwordString && <FormSuccess message={passwordString} />}
                 </div>
-              </span>
+              </div>
             </div>
             <div className="">
               <Button
