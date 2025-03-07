@@ -143,7 +143,7 @@ const Events = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        <DatePicker
+                        {/* <DatePicker
                           selected={startTime}
                           onChange={(time) => {
                             setStartTime(time);
@@ -157,7 +157,7 @@ const Events = () => {
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           className="border rounded-md p-2 w-full"
-                        />
+                        /> */}
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
@@ -183,7 +183,7 @@ const Events = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        <DatePicker
+                        {/* <DatePicker
                           selected={endTime}
                           onChange={(time) => {
                             setEndTime(time);
@@ -197,7 +197,7 @@ const Events = () => {
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           className="border rounded-md p-2 w-full"
-                        />
+                        /> */}
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
