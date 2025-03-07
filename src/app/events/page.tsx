@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
+import DatePicker from "react-datepicker";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -142,7 +143,7 @@ const Events = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        {/* <DatePicker
+                        <DatePicker
                           selected={startTime}
                           onChange={(time) => {
                             setStartTime(time);
@@ -156,7 +157,7 @@ const Events = () => {
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           className="border rounded-md p-2 w-full"
-                        /> */}
+                        />
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
@@ -182,7 +183,7 @@ const Events = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        {/* <DatePicker
+                        <DatePicker
                           selected={endTime}
                           onChange={(time) => {
                             setEndTime(time);
@@ -196,7 +197,7 @@ const Events = () => {
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           className="border rounded-md p-2 w-full"
-                        /> */}
+                        />
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
