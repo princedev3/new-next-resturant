@@ -12,7 +12,6 @@ import { format } from "date-fns";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -39,11 +38,21 @@ import {
 import toast from "react-hot-toast";
 import { eventSchema } from "@/static/schema";
 import { useRouter } from "next/navigation";
+import Calendar from 'react-calendar';
+import "react-calendar/dist/Calendar.css";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Events = () => {
   const { data } = useGetGalleryQuery();
   const [createEventOrder, { isLoading, isSuccess }] =
     useCreateEventOrderMutation();
+   
+    const [value, onChange] = useState<Value>(new Date());
+    
+
   const [orderId, setOrderId] = useState("");
   const [endTime, setEndTime] = useState<Date | null>(null);
   const [startTime, setStartTime] = useState<Date | null>(null);
@@ -67,7 +76,7 @@ const Events = () => {
     }
     const res = await createEventOrder({
       ...data,
-      price: distance && typeof distance === "object" && distance?.hours * 20,
+      price: distance && typeof distance === "object" && distance?.hours * 20,dob:value
     });
     setOrderId(res.data.resData.id);
   }
@@ -203,49 +212,21 @@ const Events = () => {
                 );
               }}
             />
-
-            <FormField
-              control={form.control}
-              name="dob"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Pick a Day</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date < new Date(new Date().setHours(0, 0, 0, 0))
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+<div className="grid gap-y-3">
+  <span className='text-lg text-gray-700'>Pick a Date</span>
+<Popover>
+  <PopoverTrigger>
+    <Button type='button'>
+    <CalendarIcon/>
+    </Button>
+  </PopoverTrigger>
+  <PopoverContent>
+ <Calendar onChange={onChange} value={value}  minDate={new Date()} />
+  </PopoverContent>
+</Popover>
+</div>
+          <FormMessage />
+      
             <div className="flex gap-3">
               <h2 className="text-lg text-gray-700">Total hours selected </h2>
               <h1 className=" text-lg text-gray-700 ">

@@ -68,9 +68,9 @@ export const gallerySchema = z.object({
 });
 
 export const eventSchema = z.object({
-  dob: z.date({
-    required_error: "A date of bookig is required.",
-  }),
+  // dob: z.date({
+  //   required_error: "A date of bookig is required.",
+  // }),
   gallery: z.string({
     required_error: "Please select a dinning.",
   }),
