@@ -40,6 +40,7 @@ import { eventSchema } from "@/static/schema";
 import { useRouter } from "next/navigation";
 import Calendar from 'react-calendar';
 import "react-calendar/dist/Calendar.css";
+import toast from "react-hot-toast"
 
 type ValuePiece = Date | null;
 
@@ -78,6 +79,11 @@ const Events = () => {
       ...data,
       price: distance && typeof distance === "object" && distance?.hours * 20,dob:value
     });
+
+    if(res.data.status ===400){
+      toast.error("you have to login")
+      return
+    }
     setOrderId(res.data.resData.id);
   }
   useEffect(() => {

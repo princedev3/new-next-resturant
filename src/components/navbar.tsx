@@ -138,7 +138,7 @@ const Navbar = () => {
                     </Link>
                   </div>
                 ))}
-                {/* {sesssion?.user?.role === "ADMIN" && ( */}
+                {sesssion?.user?.role === "ADMIN" && (
                 <Link
                   onClick={() => setOpen(false)}
                   href={"/admin"}
@@ -148,7 +148,7 @@ const Navbar = () => {
                   {" "}
                   admin
                 </Link>
-                {/* )} */}
+                 )} 
                 {sesssion?.user ? (
                   <div
                     onClick={handleLogout}

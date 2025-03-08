@@ -43,7 +43,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("account created check your email for verification");
+      toast.success("check your email for verification");
     }
   }, [isSuccess]);
 

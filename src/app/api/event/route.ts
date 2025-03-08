@@ -12,6 +12,12 @@ export const POST = async (req: NextRequest) => {
         status: 400,
       });
     }
+    if(!session){
+      return NextResponse.json({
+        message: "you have to login",
+        status: 400,
+      });
+    }
     const { dob, startTime, endTime, price, gallery } = body;
     if (!dob || !startTime || !endTime || !price || !gallery) {
       return NextResponse.json({
