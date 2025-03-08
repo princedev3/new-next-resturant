@@ -57,7 +57,7 @@ const Navbar = () => {
             </Link>
           </div>
         ))}
-        {/* {sesssion?.user?.role === "ADMIN" && ( */}
+        {sesssion?.user?.role === "ADMIN" && (
         <Link
           href={"/admin"}
           className={`${
@@ -67,7 +67,7 @@ const Navbar = () => {
           {" "}
           admin
         </Link>
-        {/* )} */}
+         )} 
       </div>
       <div className=" grid grid-flow-col gap-2 justify-end items-center h-full ">
         <Link href={"/cart"}>
