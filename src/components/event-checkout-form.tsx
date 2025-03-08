@@ -61,7 +61,7 @@ export default function EventCheckoutForm({
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/eventsuccess`,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/eventsuccess`,
       },
     });
 
